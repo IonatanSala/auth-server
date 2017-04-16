@@ -1,0 +1,22 @@
+{
+  "name": "passport",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Ionatan Sala <sala.jonatan1995@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon src/server.js"
+  },
+  "dependencies": {
+    "bcrypt-nodejs": "^0.0.3",
+    "body-parser": "1.17.1",
+    "express": "4.15.2",
+    "jsonwebtoken": "7.3.0",
+    "mongoose": "4.9.4",
+    "morgan": "1.8.1",
+    "passport": "0.3.2",
+    "passport-jwt": "2.2.1",
+    "passport-local": "1.0.0",
+    "pm2": "^2.4.4"
+  }
+}
