@@ -12,14 +12,14 @@ const dbSetup = () => {
     let currentReconnectTries = 0;
     mongoose.connection.on("connected", () => {
       clearInterval(tryConnectDBInterval);
-      resolve();
+      return resolve();
     });
 
     mongoose.connection.on("error", (err) => {
       currentReconnectTries++;
       if(currentReconnectTries === reconnectTries) {
         clearInterval(tryConnectDBInterval);
-        reject();
+        return reject();
       }
     });
 

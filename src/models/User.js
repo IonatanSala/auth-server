@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt-nodejs');
+const crypto = require('crypto');
 
 const userSchema = new Schema({
   email: {
@@ -14,6 +15,13 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: 'Password is required'
+  },
+  emailVerificationKey: {
+    type: String
+  },
+  emailVerified: {
+    type: Boolean,
+    default: false
   }
 });
 
@@ -26,5 +34,9 @@ const User = mongoose.model('user', userSchema);
 User.hashPassword = function(password) {
   return bcrypt.hashSync(password);
 }
+
+User.createEmailVerificationKey = () => {
+  return crypto.randomBytes(32).toString('hex');
+};
 
 module.exports = User;
