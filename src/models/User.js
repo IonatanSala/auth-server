@@ -22,6 +22,9 @@ const userSchema = new Schema({
   emailVerified: {
     type: Boolean,
     default: false
+  },
+  resetPasswordKey: {
+    type: String
   }
 });
 
@@ -29,13 +32,17 @@ userSchema.methods.comparePasswords = function(password) {
   return bcrypt.compareSync(password, this.password);
 };
 
+userSchema.methods.setPasswordKey = function() {
+  this.resetPasswordKey = User.createKey();
+}
+
 const User = mongoose.model('user', userSchema);
 
 User.hashPassword = function(password) {
   return bcrypt.hashSync(password);
 }
 
-User.createEmailVerificationKey = () => {
+User.createKey = () => {
   return crypto.randomBytes(32).toString('hex');
 };
 

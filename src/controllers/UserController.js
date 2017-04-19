@@ -1,5 +1,7 @@
 const createNewUser = require('../queries/user/createNewUser');
 const setEmailToVerified = require('../queries/user/setEmailToVerified');
+const { sendResetPasswordEmail } = require('../services/emails');
+const resetUserPassword = require('../queries/user/resetUserPassword');
 
 const create = async (req, res, next) => {
   const newUser = req.body;
@@ -21,9 +23,35 @@ const verifyEmail = async (req, res, next) => {
   }
 }
 
+const resetPassword = async (req, res, next) => {
+  const { email } = req.params;
+
+  try {
+    const response = await sendResetPasswordEmail(email);
+    res.json(response);
+  } catch(e) {
+    res.status(404).json(e);
+  }
+};
+
+
+const updatePassword = async (req, res, next) => {
+  const { id, resetKey, newPassword } = req.body;
+
+  try {
+    await resetUserPassword(id, resetKey, newPassword);
+    res.json({ data: { details: "Your password has been updated."}});
+  } catch(e) {
+    console.log(e);
+    res.status(400).json({ errors: { message: 'Bad Request' }});
+  }
+}
+
 const UserController = {
   create,
-  verifyEmail
+  verifyEmail,
+  resetPassword,
+  updatePassword
 };
 
 module.exports = UserController;

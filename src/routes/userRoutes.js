@@ -4,6 +4,8 @@ const UserController = require('../controllers/UserController');
 router
   .post('/', UserController.create)
   .get('/verify/:userID/:emailKey', UserController.verifyEmail)
+  .get('/resetPassword/:email', UserController.resetPassword)
+  .put('/resetPassword', UserController.updatePassword)
 ;
 
 module.exports = router;

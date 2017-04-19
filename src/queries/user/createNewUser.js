@@ -39,7 +39,7 @@ const createNewUser = (newUser) => {
 
 
     newUser.password = User.hashPassword(newUser.password);
-    newUser.emailVerificationKey = User.createEmailVerificationKey();
+    newUser.emailVerificationKey = User.createKey();
     const newUserInstance = new User(newUser);
 
     try {
