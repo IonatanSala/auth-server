@@ -11,7 +11,8 @@ const sendEmailVerificationToUser = (email) => {
       console.log('Couldn\'t find user');
       return reject(e)
     }
-    console.log(user);
+
+    if(user.emailVerified) return resolve({ data: { emailVerified: true, details: 'Email has already been verified' }})
 
     user.emailVerificationKey = User.createKey();
     try {

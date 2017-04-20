@@ -5,9 +5,12 @@ const setEmailToVerified = (userID, emailKey) => {
     let user;
     try {
       user = await User.findOne({ _id: userID });
+
     } catch(e) {
       return reject({ status: 400, errors: { details: 'Bad Request' }});
     }
+
+    if(!user) return reject({ status: 400, errors: { details: 'Bad Request' }});
 
     if(user.emailVerified) return resolve({ data: { details: 'Your email has already been verified.'}});
 

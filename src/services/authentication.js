@@ -20,7 +20,7 @@ passport.use(new LocalStrategy({usernameField: 'email'},
 
 	if(!user) return done(null, false, { message: 'Email or password is incorrect.'})
 	if(!user.comparePasswords(password)) return done(null, false, { message: 'Email or password is incorrect.'});
-
+	
 	return done(null, user);
 }));
 

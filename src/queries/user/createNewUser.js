@@ -71,7 +71,7 @@ const createNewUser = (newUser) => {
       })
     }
 
-    resolve({ token: createJWT(createdUser) });
+    resolve({data: { details: "A verification email was sent to your email."}});
   });
 };
 
