@@ -1,6 +1,4 @@
-# auth-server
-Server side implementation of authentication
-
+# Authentication Service API
 ## API Doc
 ### Authentication API
 - **POST /users - Create User**
