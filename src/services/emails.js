@@ -26,8 +26,8 @@ const sendEmailVerification = (userID, emailKey, to) => {
     from: '"Authentication Service" <getintouch@ionatansala.me>',
     to,
     subject: "Verify Your Email",
-    text: `Copy and paste this link into your browser to verify your email address: ${HOST_URL}/users/verify/${userID}/${emailKey}`,
-    html: `<a href="${HOST_URL}/users/verify/${userID}/${emailKey}" >Please click this link to validate your email address</a>`
+    text: `Copy and paste this link into your browser to verify your email address: ${CLIENT_URL}/verify/${userID}/${emailKey}`,
+    html: `<a href="${CLIENT_URL}/verify/${userID}/${emailKey}" >Please click this link to validate your email address</a>`
   };
 
   return new Promise((resolve, reject) => {
@@ -61,7 +61,7 @@ const sendResetPasswordEmail = (email) => {
       from: '"Reset Your Password" <getintouch@ionatansala.me>',
       to: user.email,
       subject: "Reset Your Password",
-      text: `Copy and paste this link into your browser to reset your password: ${CLIENT_URL}/users/resetPassword/${user._id}/${user.resetPasswordKey}`,
+      text: `Copy and paste this link into your browser to reset your password: ${CLIENT_URL}/resetPassword/${user._id}/${user.resetPasswordKey}`,
       html: `<a href="${CLIENT_URL}/resetPassword/${user._id}/${user.resetPasswordKey}" >Please click this link to change your password</a>`
     };
 

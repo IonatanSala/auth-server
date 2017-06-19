@@ -12,6 +12,15 @@ const sendEmailVerificationToUser = (email) => {
       return reject(e)
     }
 
+    if(!user) return reject({
+      status: 400,
+      errors: {
+        email: {
+          message: 'User doesn\'t exist'
+        }
+      }
+    });
+
     if(user.emailVerified) return resolve({ data: { emailVerified: true, details: 'Email has already been verified' }})
 
     user.emailVerificationKey = User.createKey();
@@ -29,11 +38,9 @@ const sendEmailVerificationToUser = (email) => {
     } catch(e) {
       return reject({
         status: 400,
-        errorObject: {
-          errors: {
-            email: {
-              message: 'Couldn\'t send verification email.'
-            }
+        errors: {
+          email: {
+            message: 'Couldn\'t send verification email.'
           }
         }
       })

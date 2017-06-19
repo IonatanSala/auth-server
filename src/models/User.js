@@ -43,7 +43,7 @@ User.hashPassword = function(password) {
 }
 
 User.createKey = () => {
-  return crypto.randomBytes(32).toString('hex');
+  return crypto.randomBytes(64).toString('hex');
 };
 
 module.exports = User;
