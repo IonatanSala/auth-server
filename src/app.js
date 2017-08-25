@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const morgan = require('morgan');
 const cors = require('cors');
-const { CLIENT_URL } = require('./config');
 const router = require('./routes/router');
 const app = express();
 // authentication services setup
@@ -15,7 +14,7 @@ DBSetup()
   .then(() => {
 
     const corsOptions = {
-      origin: CLIENT_URL,
+      origin: process.env.CLIENT_URL,
       optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
     };
 

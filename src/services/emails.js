@@ -1,22 +1,13 @@
 const nodemailer = require('nodemailer');
 const getUserWithEmail = require('../queries/shared/getUserWithEmail');
 
-const {
-  HOST_URL,
-  CLIENT_URL,
-  EMAIL_HOST,
-  EMAIL_PORT,
-  EMAIL_SECURE,
-  EMAIL_USER,
-  EMAIL_PASS } = require('../config');
-
 let smtpConfig = {
-    host: EMAIL_HOST,
-    port: EMAIL_PORT,
-    secure: EMAIL_SECURE,
+    host: process.env.EMAIL_HOST,
+    port: process.env.EMAIL_PORT,
+    secure: process.env.EMAIL_SECURE,
     auth: {
-        user: EMAIL_USER,
-        pass: EMAIL_PASS
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
     }
 };
 
@@ -26,8 +17,8 @@ const sendEmailVerification = (userID, emailKey, to) => {
     from: '"Authentication Service" <getintouch@ionatansala.me>',
     to,
     subject: "Verify Your Email",
-    text: `Copy and paste this link into your browser to verify your email address: ${CLIENT_URL}/verify/${userID}/${emailKey}`,
-    html: `<a href="${CLIENT_URL}/verify/${userID}/${emailKey}" >Please click this link to validate your email address</a>`
+    text: `Copy and paste this link into your browser to verify your email address: ${process.env.CLIENT_URL}/verify/${userID}/${emailKey}`,
+    html: `<a href="${process.env.CLIENT_URL}/verify/${userID}/${emailKey}" >Please click this link to validate your email address</a>`
   };
 
   return new Promise((resolve, reject) => {
@@ -61,8 +52,8 @@ const sendResetPasswordEmail = (email) => {
       from: '"Reset Your Password" <getintouch@ionatansala.me>',
       to: user.email,
       subject: "Reset Your Password",
-      text: `Copy and paste this link into your browser to reset your password: ${CLIENT_URL}/resetPassword/${user._id}/${user.resetPasswordKey}`,
-      html: `<a href="${CLIENT_URL}/resetPassword/${user._id}/${user.resetPasswordKey}" >Please click this link to change your password</a>`
+      text: `Copy and paste this link into your browser to reset your password: ${process.env.CLIENT_URL}/resetPassword/${user._id}/${user.resetPasswordKey}`,
+      html: `<a href="${process.env.CLIENT_URL}/resetPassword/${user._id}/${user.resetPasswordKey}" >Please click this link to change your password</a>`
     };
 
     try {

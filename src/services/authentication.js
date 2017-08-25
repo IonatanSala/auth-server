@@ -5,7 +5,6 @@ const JwtStrategy = passportJWT.Strategy;
 const ExtractJwt = passportJWT.ExtractJwt;
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
-const { SECRET_KEY } = require('../config');
 
 // authenticating email & password
 passport.use(new LocalStrategy({usernameField: 'email'},
@@ -20,14 +19,14 @@ passport.use(new LocalStrategy({usernameField: 'email'},
 
 	if(!user) return done(null, false, { message: 'Email or password is incorrect.'})
 	if(!user.comparePasswords(password)) return done(null, false, { message: 'Email or password is incorrect.'});
-	
+
 	return done(null, user);
 }));
 
 
 const jwtOptions = {
 	jwtFromRequest: ExtractJwt.fromHeader('authorization'),
-	secretOrKey: SECRET_KEY
+	secretOrKey: process.env.SECRET_KEY
 };
 
 passport.use(new JwtStrategy(jwtOptions, async (jwtPayload, done) => {
@@ -46,7 +45,7 @@ passport.use(new JwtStrategy(jwtOptions, async (jwtPayload, done) => {
 // create jwt
 const createJWT = (user) => {
 	const userID = user._id;
-	const jwtToken = jwt.sign({ sub: userID }, SECRET_KEY);
+	const jwtToken = jwt.sign({ sub: userID }, process.env.SECRET_KEY);
 	return jwtToken;
 }
 

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 // configure Promises
 mongoose.Promise = global.Promise;
 // database uri
-const dbUri = process.env.DB_URI || 'mongodb://localhost/authenticationService';
+const dbUri = process.env.MONGODB_URI;
 const reconnectInterval = 100;
 const reconnectTries = 600;
 
