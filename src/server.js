@@ -1,5 +1,6 @@
 if(process.env.NODE_ENV === 'production') {
-  // require('dotenv').config()
+  console.log(process.env);
+  require('dotenv').config()
 } else {
   require('dotenv').config({ path: './.env.dev' });
 }
