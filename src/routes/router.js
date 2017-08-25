@@ -5,6 +5,9 @@ const router = (app) => {
   app
     .use('/authentication', authenticationRouter)
     .use('/users', userRoutes)
+    .get('*', (req, res) => {
+      res.status(404).send('Not found');
+    })
   ;
 };
 
