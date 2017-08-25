@@ -12,7 +12,6 @@ const DBSetup = require('./config/database');
 DBSetup()
   // database is connected
   .then(() => {
-
     const corsOptions = {
       origin: process.env.CLIENT_URL,
       optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
