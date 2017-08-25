@@ -26,7 +26,7 @@ passport.use(new LocalStrategy({usernameField: 'email'},
 
 const jwtOptions = {
 	jwtFromRequest: ExtractJwt.fromHeader('authorization'),
-	secretOrKey: process.env.SECRET_KEY
+	secretOrKey: process.env.JWT_SECRET_KEY
 };
 
 passport.use(new JwtStrategy(jwtOptions, async (jwtPayload, done) => {
@@ -45,7 +45,7 @@ passport.use(new JwtStrategy(jwtOptions, async (jwtPayload, done) => {
 // create jwt
 const createJWT = (user) => {
 	const userID = user._id;
-	const jwtToken = jwt.sign({ sub: userID }, process.env.SECRET_KEY);
+	const jwtToken = jwt.sign({ sub: userID }, process.env.JWT_SECRET_KEY);
 	return jwtToken;
 }
 
